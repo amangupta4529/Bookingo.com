@@ -1,0 +1,13 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+.loading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.mainscreen{
+    width: 100%;
+    height: 100%;
+}
