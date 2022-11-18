@@ -9,8 +9,9 @@ import "./home.css";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Navbar />
+      <div className="nav-partition">
       <Header/>
       <div className="homeContainer">
         <Featured/>
@@ -21,7 +22,8 @@ const Home = () => {
         <MailList/>
         <Footer/>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

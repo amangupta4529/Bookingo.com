@@ -4,7 +4,6 @@
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
-  gap: 20px;
   margin-bottom: 20px;
 }
 
@@ -17,8 +16,8 @@
 .siDesc {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex: 2;
+  gap: 5px;margin-left: 20px;
+
 }
 
 .siTitle {
@@ -60,12 +59,24 @@
 }
 
 .siDetails {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between
 }
+@media only screen and (max-width: 935px) {
+.siImg{
+width: 100px;
+height: 100px;
+}
+.hotelDesc{
+  display: none;
+}
+.siCheckButton{
+  font-size: 10px;
+  width: 100px;
+}
 
+}
 .siRating{
   display: flex;
   justify-content: space-between
@@ -106,4 +117,17 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
+}
+.readMoreBTN{
+  display: inline;
+  border: 0px;
+  width: 90px;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: blue;
+  cursor: pointer;
+}
+#dots{
+  display: inline;
 }

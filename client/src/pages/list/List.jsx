@@ -27,9 +27,8 @@ const List = () => {
     dispatch({ type: "NEW_SEARCH", payload: { destination, "dates":date, options } });
     reFetch();
   };
-
   return (
-    <div>
+    <div className="hotelListBox"> 
       <Navbar />
       <Header type="list" />
       <div className="listContainer">

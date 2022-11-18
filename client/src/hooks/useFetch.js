@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useFetch = (url) => {
+  const useFetch = (url) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-   const host="https://bookingo.herokuapp.com/api";
+  const host="https://bookingo.herokuapp.com/api";
 
   // const host="http://localhost:5000/api";
   useEffect(() => {
@@ -33,7 +33,7 @@ const useFetch = (url) => {
     setLoading(false);
   };
 
-  return { data, loading, error, reFetch };
+  return { data, loading, error, reFetch,setLoading };
 };
 
 export default useFetch;

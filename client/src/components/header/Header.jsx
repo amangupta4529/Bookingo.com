@@ -2,10 +2,12 @@ import {
   faBed,
   faCalendarDays,
   faCar,
+  faCheck,
   faPerson,
   faPlane,
   faTaxi,
 } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.css";
 import { DateRange } from "react-date-range";
@@ -38,7 +40,6 @@ const Header = ({ type }) => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
-
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -50,7 +51,8 @@ const Header = ({ type }) => {
 
   const { dispatch } = useContext(SearchContext);
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    console.log(e);
     dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     navigate("/hotels", { state: { destination, dates, options } });
   };
@@ -64,23 +66,23 @@ const Header = ({ type }) => {
       >
         <div className="headerList">
           <div className="headerListItem active">
-            <FontAwesomeIcon icon={faBed} />
+            <FontAwesomeIcon icon={faBed} className="header-svg" />
             <span>Stays</span>
           </div>
           <div className="headerListItem">
-            <FontAwesomeIcon icon={faPlane} />
+            <FontAwesomeIcon icon={faPlane} className="header-svg" />
             <span>Flights</span>
           </div>
           <div className="headerListItem">
-            <FontAwesomeIcon icon={faCar} />
+            <FontAwesomeIcon icon={faCar} className="header-svg" />
             <span>Car rentals</span>
           </div>
           <div className="headerListItem">
-            <FontAwesomeIcon icon={faBed} />
+            <FontAwesomeIcon icon={faBed} className="header-svg" />
             <span>Attractions</span>
           </div>
           <div className="headerListItem">
-            <FontAwesomeIcon icon={faTaxi} />
+            <FontAwesomeIcon icon={faTaxi} className="header-svg" />
             <span>Airport taxis</span>
           </div>
         </div>
@@ -93,47 +95,90 @@ const Header = ({ type }) => {
               Get rewarded for your travels – unlock instant savings of 10% or
               more with a free bookingo account
             </p>
-            {!user && <button className="headerBtn"><Link style={{"textDecoration":"none","color":"white"}} to={"/login"}>Sign in</Link> / <Link style={{"textDecoration":"none","color":"white"}} to={"/register"}>Register</Link></button>}
-            <div className="headerSearch">
-              <div className="headerSearchItem">
+            {!user && (
+              <button className="headerBtns">
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={"/login"}
+                >
+                  Sign in
+                </Link>{" "}
+                /{" "}
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={"/register"}
+                >
+                  Register
+                </Link>
+              </button>
+            )}
+            <form className="headerSearch" onSubmit={handleSearch}>
+              <div className="headerSearchItem part1" id="minheaderSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                <input
-                  type="text"
-                  placeholder="Where are you going?"
-                  className="headerSearchInput"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value.toUpperCase())}
-                />
-              </div>
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-                <span
-                  onClick={() => setOpenDate(!openDate)}
-                  className="headerSearchText"
-                >{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(
-                  dates[0].endDate,
-                  "MM/dd/yyyy"
-                )}`}</span>
-                {openDate && (
-                  <DateRange
-                    editableDateInputs={true}
-                    onChange={(item) => {
-                      console.log(item.selection);
-                      setDates([item.selection])
-                    }}
-                    moveRangeOnFirstSelection={false}
-                    ranges={dates}
-                    className="date"
-                    minDate={new Date()}
+                <div className="partition">
+                  <input
+                    type="text"
+                    placeholder="Around current location"
+                    className="headerSearchInput"
+                    value={destination}
+                    required
+                    onChange={(e) =>
+                      setDestination(e.target.value.toUpperCase())
+                    }
                   />
+                </div>
+              </div>
+              <div className="headerSearchItem part2" id="minheaderSearchItem">
+                <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+                <div className="partition dateBlock">
+                  <div className="datetext">
+                    <span
+                      onClick={() => setOpenDate(!openDate)}
+                      className="headerSearchText "
+                    >
+                      {`${format(dates[0].startDate, "MM/dd/yyyy")}`}
+                    </span>
+                  </div>
+                  <div id="seprator"> to</div>
+                  <div className="datetext">
+                    <span
+                      onClick={() => setOpenDate(!openDate)}
+                      className="headerSearchText"
+                    >
+                      {` ${format(dates[0].endDate, "MM/dd/yyyy")}`}
+                    </span>
+                  </div>
+                </div>
+                {openDate && (
+                  <div className="dateBox">
+                    <div className="iconCover">
+                      <FontAwesomeIcon
+                        icon={faCheck}
+                        className="dateclose"
+                        onClick={() => setOpenDate(!openDate)}
+                      />
+                    </div>
+                    <DateRange
+                      editableDateInputs={true}
+                      onChange={(item) => {
+                        setDates([item.selection]);
+                      }}
+                      moveRangeOnFirstSelection={false}
+                      ranges={dates}
+                      className="date"
+                      minDate={new Date()}
+                    />
+                  </div>
                 )}
               </div>
-              <div className="headerSearchItem">
+              <div className="headerSearchItem part3" id="minheaderSearchItem">
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-                <span
-                  onClick={() => setOpenOptions(!openOptions)}
-                  className="headerSearchText"
-                >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+                <div className="partition">
+                  <span
+                    onClick={() => setOpenOptions(!openOptions)}
+                    className="headerSearchText"
+                  >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+                </div>
                 {openOptions && (
                   <div className="options">
                     <div className="optionItem">
@@ -202,12 +247,16 @@ const Header = ({ type }) => {
                   </div>
                 )}
               </div>
-              <div className="headerSearchItem">
-                <button className="headerBtn" onClick={handleSearch}>
-                  Search
-                </button>
+              <div
+                className="headerSearchItem btndiv part4"
+                id="minheaderSearchItem"
+              >
+                <input
+                  type="submit"
+                  className="headerBtn"
+                />
               </div>
-            </div>
+            </form>
           </>
         )}
       </div>

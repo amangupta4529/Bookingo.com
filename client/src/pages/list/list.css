@@ -2,7 +2,18 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  width: 100%;
 }
+.hotelListBox{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
 
 .listWrapper {
   width: 100%;
@@ -20,6 +31,17 @@
   top: 10px;
   height: max-content;
 }
+@media only screen and (max-width: 935px) {
+  .listWrapper{
+    flex-direction: column;
+    width: 90%;
+   
+  }
+  .listSearch{
+    position: static;
+  }
+  }
+
 
 .lsTitle{
   font-size: 20px;
